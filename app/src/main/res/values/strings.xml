@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">itembotom</string>
+    <string name="appMenu">Menú App</string>
+    <string name="go">Go To Activity 2</string>
+    <string name="goToGoogle">Go to Google</string>
+    <string name="crearAlarma">Crear Alarma</string>
+    <string name="llamar">Llamar</string>
+    <string name="tomarFoto">Tomar foto</string>
+    <string name="crearNota">Crear Nota</string>
+</resources>
