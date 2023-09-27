@@ -9,13 +9,14 @@ import android.provider.AlarmClock;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.actions.NoteIntents;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    Button google,alarma,llamada,panatalla2,foto,nota;
+    Button google,alarma,llamada,panatalla2,foto,email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
         alarma = findViewById(R.id.CrearAlarma);
         llamada = findViewById(R.id.Llamar);
         foto = findViewById(R.id.Foto);
-        nota = findViewById(R.id.crearNota);
+        email = findViewById(R.id.enviarEmail);
+
 
 
 
@@ -69,12 +71,37 @@ public class MainActivity extends AppCompatActivity {
                tomarFoto();
             }
         });
-        nota.setOnClickListener(new View.OnClickListener() {
+
+        email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createNote("Hola","perrito");
+
+                String[] destinatarios = {"danielblandon_01@hotmail.com"};
+
+                // Asunto del correo electrónico
+                String asunto = "Prueba";
+
+                // Cuerpo del correo electrónico
+                String mensaje = "Este es el contenido del correo electrónico.";
+
+                // Crea un Intent para enviar el correo electrónico
+                Intent EnviarE= new Intent(Intent.ACTION_SEND);
+                EnviarE.setType("message/rfc822"); // Tipo MIME para correos electrónicos
+
+                // Configura los destinatarios, el asunto y el mensaje
+                EnviarE.putExtra(Intent.EXTRA_EMAIL, destinatarios);
+                EnviarE.putExtra(Intent.EXTRA_SUBJECT, asunto);
+                EnviarE.putExtra(Intent.EXTRA_TEXT, mensaje);
+
+                try {
+                    startActivity(Intent.createChooser(EnviarE, "Elige una aplicación de correo electrónico"));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    // Si no hay ninguna aplicación de correo electrónico instalada, muestra un mensaje de error
+                    Toast.makeText(MainActivity.this, "No se encontró una aplicación de correo electrónico.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
 
     }
 
@@ -91,11 +118,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void dialPhoneNumber(String phoneNumber) {
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:" + phoneNumber));
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
+        Intent nota = new Intent(Intent.ACTION_DIAL);
+
+        try {
+            nota.setData(Uri.parse("tel:" + phoneNumber));
+            if (nota.resolveActivity(getPackageManager()) != null) {
+                startActivity(nota);
+            }
+        }catch (Exception e){
+           System.out.print("hola");
         }
+
     }
 
     public void tomarFoto (){
@@ -104,16 +137,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(takePictureIntent);
         }
     }
-
-    public void createNote(String subject, String text) {
-        Intent intent = new Intent(NoteIntents.ACTION_CREATE_NOTE);
-            intent.putExtra(NoteIntents.EXTRA_NAME, subject);
-            intent.putExtra(NoteIntents.EXTRA_TEXT, text);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
-    }
-
 
 
 }

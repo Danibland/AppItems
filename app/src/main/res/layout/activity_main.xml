@@ -64,10 +64,10 @@
 
 
         <Button
-            android:id="@+id/crearNota"
+            android:id="@+id/enviarEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/crearNota"
+            android:text="@string/enviarEmail"
             />
 
 
