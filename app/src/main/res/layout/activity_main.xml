@@ -32,8 +32,8 @@
             android:id="@+id/GoAct2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/go"
-            />
+            android:text="@string/go" />
+
         <Button
             android:id="@+id/Google"
             android:layout_width="match_parent"

@@ -30,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
         email = findViewById(R.id.enviarEmail);
 
 
-
-
+        Intent ir = new Intent(MainActivity.this,MainActivity2.class);
 
         panatalla2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+            ir.getAction();
+            startActivity(ir);
             }
         });
 
